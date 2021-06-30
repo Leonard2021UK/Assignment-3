@@ -11,8 +11,8 @@ public class Main {
         // Store file path
         File file = new File("data/data.txt");
 
-        // It uses try-with-resources where the resource "BufferedReader" is automatically closed once finished (normally or abruptly),
-        // hence no need for finally block.
+        // Here I am using try-with-resources where the resource "BufferedReader" is automatically closed once finished (normally or abruptly),
+        // hence no need for finally block. A resource has to implement AutoClose or Closable interface.
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String userData;
             while ((userData = br.readLine()) != null)
