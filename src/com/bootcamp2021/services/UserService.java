@@ -8,25 +8,37 @@ public class UserService {
 
     ArrayList<User> users = new ArrayList<>();
 
+    private int invalidLoginAttempts;
+
+    public UserService() {
+        this.invalidLoginAttempts = 0;
+    }
+
     private User createUser(String data){
         String[] userDetails = data.split(",");
         return new User(userDetails);
+    }
+
+    public boolean hasAnotherAttempt() {
+        return this.invalidLoginAttempts < 5;
     }
 
     public void setUser(String userData){
         users.add(this.createUser(userData));
     }
 
-    public void validateUSer(String userName, String password){
+    public boolean authenticateUSer(String userName, String password){
         for (User user : users){
             if (user.getUsername().equals(userName) && user.getPassword().equals(password)) {
-
                 System.out.println("Welcome " + user.getName());
-
-            }else{
-                System.out.println("Invalid login, please try again.");
+                return true;
             }
         }
+
+        System.out.println("Invalid login, please try again.");
+        this.invalidLoginAttempts++;
+
+        return false;
     }
 
 }

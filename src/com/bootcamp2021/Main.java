@@ -14,6 +14,7 @@ public class Main {
         // instantiate services
         FileService fileService = new FileService();
         UserService userService = new UserService();
+        boolean useIsAuthenticated = false;
 
         // read the data from the file into an array
         fileService.readFile();
@@ -25,15 +26,17 @@ public class Main {
 
         // It uses try-with-resources where the resource "Scanner" is automatically closed once finished (normally or abruptly),
         // hence no need for finally block.
-        try (Scanner scanner = new Scanner(System.in)){
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (!useIsAuthenticated  && userService.hasAnotherAttempt() ){
 
-            System.out.println("Please enter your username:");
-            String username = scanner.nextLine();
+                System.out.println("Please enter your username:");
+                String username = scanner.nextLine();
 
-            System.out.println("Please enter your password:");
-            String password = scanner.nextLine();
+                System.out.println("Please enter your password:");
+                String password = scanner.nextLine();
 
-            userService.validateUSer(username,password);
+                useIsAuthenticated = userService.authenticateUSer(username, password);
+        }
 
         }catch (Exception e){
             System.out.println("Ooops, something went wrong!");
