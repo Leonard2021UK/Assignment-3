@@ -8,8 +8,12 @@ import java.util.List;
 
 public class FileService {
 
+    // holds data read from the file
     private final List<String> dataArray = new ArrayList<>();
 
+    /**
+     * Reads file into an ArrayList
+     */
     public void readFile(){
         // Store file path
         File file = new File("data/data.txt");
