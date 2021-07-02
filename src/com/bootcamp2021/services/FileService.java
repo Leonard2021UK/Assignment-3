@@ -23,6 +23,7 @@ public class FileService {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String userData;
             while ((userData = br.readLine()) != null){
+                // For you :) (code reviewer)
                 System.out.println(userData);
                 dataArray.add(userData);
             }
